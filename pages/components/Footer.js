@@ -2,13 +2,13 @@ import Image from "next/image";
 
 import React from "react";
 
-function Footer() { 
+function Footer() {
   return (
-    <div className="overflow-x-hidden w-full h-full min-h-screen"> 
-
-
-
-    </div> 
+    <div>
+      <footer className="bg-gray-800 text-white text-center py-4 mt-8">
+        © {new Date().getFullYear()} All rights reserved.
+      </footer>
+    </div>
   );
 }
 
