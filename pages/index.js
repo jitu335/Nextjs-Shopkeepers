@@ -8,7 +8,7 @@ import { Content } from "./components/Content";
 
 
 export default function Home() {
-  const [cart, setCart] = useState([]);
+
 
   return (
     <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white"> 
@@ -16,7 +16,7 @@ export default function Home() {
 
     
       <Navbar />
- {/* <Content/>   */}
+
       <Footer />
     
        
