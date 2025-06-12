@@ -9,11 +9,16 @@ import React from "react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaSun, FaMoon, FaChevronDown } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedBusiness, setSelectedBusiness] = useState("Dentist");
+
+  const router = useRouter();
+
+  
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -35,7 +40,8 @@ function Navbar() {
     }
   };
   const handleSelectBusiness = (business) => {
-    setSelectedBusiness(business);
+    // setSelectedBusiness(business);
+    router.push(`/business/${business.toLowerCase()}`);
     setShowDropdown(false);
   };
 
@@ -74,7 +80,7 @@ function Navbar() {
             <Link href="/" className="hover:text-red-300">
               Home
             </Link>
-            <Link href="#" className="hover:text-red-300">
+            <Link href="" className="hover:text-red-300">
               Vision
             </Link>
             <Link href="/aboutus" className="hover:text-red-300">
@@ -95,14 +101,14 @@ function Navbar() {
               </button>
               {showDropdown && (
                 <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-md w-40 z-50">
-                  {["Dentist", "Salon", "Bakery", "Electrician"].map(
+                  {["dentist", "salon", "bakery", "electrician"].map(
                     (business) => (
                       <button
                         key={business}
                         onClick={() => handleSelectBusiness(business)}
                         className="block w-full text-left px-4 py-2 hover:bg-gray-200"
                       >
-                        {business}
+                       {business.charAt(0).toUpperCase() + business.slice(1)}
                       </button>
                     )
                   )}

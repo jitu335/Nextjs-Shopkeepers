@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDebugValue, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { Content } from "./components/Content";
+
 
 
 export default function Home() {
@@ -14,12 +14,11 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white"> 
 
 
-    
       <Navbar />
-
+    <p>dgfd</p>
       <Footer />
     
-       
+   
   
     </div>
   );
