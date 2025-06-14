@@ -8,17 +8,15 @@ import { Card, Input } from "antd";
 import React from "react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaSun, FaMoon, FaChevronDown } from "react-icons/fa";
+import { FaSun, FaMoon, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedBusiness, setSelectedBusiness] = useState("Dentist");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const router = useRouter();
-
-  
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -40,32 +38,77 @@ function Navbar() {
     }
   };
   const handleSelectBusiness = (business) => {
-    // setSelectedBusiness(business);
-    router.push(`/business/${business.toLowerCase()}`);
+    router.push(`/business/${business}`);
     setShowDropdown(false);
   };
 
-  return (
-    <div className="w-full h-full min-h-screen overflow-x-hidden bg-white text-black dark:bg-gray-900 dark:text-white">
-      <nav className="bg-blue-600 p-4 text-white relative z-50">
-        <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          {/* Brand Logo */}
-          <div className="flex items-center gap-2">
-            <Image
-              src="/my_photos/orffosoft.png"
-              alt="My Photo"
-              width={100}
-              height={60}
-              style={{ height: "40px", width: "auto", objectFit: "contain" }}
-            />
-          </div>
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/aboutus" },
+    { name: "Contact", href: "/contactus" },
+  ];
 
-          {/* Dark Mode Toggle */}
-          <div className="flex justify-center sm:justify-start">
+  const businesses = ["dentist", "salon", "bakery", "electrician"];
+
+  return (
+    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
+      <nav className="bg-blue-600 p-4 text-white relative z-50">
+        <div className="max-w-screen-xl mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <Image
+            src="/my_photos/orffosoft.png"
+            alt="Logo"
+            width={100}
+            height={60}
+            style={{ height: "40px", width: "auto", objectFit: "contain" }}
+          />
+
+          {/* Hamburger */}
+          <button className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
+
+          {/* Links */}
+          <div
+            className={`flex-col sm:flex-row sm:flex items-center absolute sm:static bg-blue-600 left-0 w-full sm:w-auto p-4 sm:p-0 transition-all duration-300 ${
+              menuOpen ? "top-16" : "top-[-400px]"
+            }`}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
+              {navLinks.map(({ name, href }) => (
+                <Link key={name} href={href} className="hover:text-red-300">
+                  {name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Dropdown */}
+            <div className="relative mt-4 sm:mt-0 sm:ml-4">
+              <button
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800 transition flex items-center gap-2"
+              >
+                Select Business <FaChevronDown className="text-white text-sm" />
+              </button>
+              {showDropdown && (
+                <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-md w-40 z-50">
+                  {businesses.map((b) => (
+                    <button
+                      key={b}
+                      onClick={() => handleSelectBusiness(b)}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-200 capitalize"
+                    >
+                      {b}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Dark Mode */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-blue-700 hover:bg-blue-800 transition"
-              aria-label="Toggle Dark Mode"
+              className="p-2 rounded-full bg-blue-700 hover:bg-blue-800 transition ml-2 mt-4 sm:mt-0"
             >
               {darkMode ? (
                 <FaSun className="text-yellow-400 text-2xl" />
@@ -74,83 +117,13 @@ function Navbar() {
               )}
             </button>
           </div>
-
-          {/* Links + Business Dropdown */}
-          <div className="flex flex-row sm:ml-auto items-center space-x-4 text-center sm:text-left relative">
-            <Link href="/" className="hover:text-red-300">
-              Home
-            </Link>
-            <Link href="" className="hover:text-red-300">
-              Vision
-            </Link>
-            <Link href="/aboutus" className="hover:text-red-300">
-              About
-            </Link>
-            <Link href="/contactus" className="hover:text-amber-300">
-              Contact
-            </Link>
-
-            {/* Business Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setShowDropdown(!showDropdown)}
-                className="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800 transition flex items-center gap-2"
-              >
-                Select Business
-                <FaChevronDown className="text-white text-sm" />
-              </button>
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-md w-40 z-50">
-                  {["dentist", "salon", "bakery", "electrician"].map(
-                    (business) => (
-                      <button
-                        key={business}
-                        onClick={() => handleSelectBusiness(business)}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
-                      >
-                       {business.charAt(0).toUpperCase() + business.slice(1)}
-                      </button>
-                    )
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </nav>
 
-      {/* Selected Business Content */}
-      <main className="p-8 text-center">
-        {selectedBusiness === "Dentist" && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">
-              Welcome to Dentist Clinic
-            </h2>
-            <p>Providing Root Canals, Teeth Cleaning, and more.</p>
-          </div>
-        )}
-        {selectedBusiness === "Salon" && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Welcome to Shine Salon</h2>
-            <p>Offering Haircuts, Spa treatments, and beauty services.</p>
-          </div>
-        )}
-        {selectedBusiness === "Bakery" && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">
-              Welcome to Sweet Treats Bakery
-            </h2>
-            <p>Delicious Cakes, Cookies, and Pastries available.</p>
-          </div>
-        )}
-        {selectedBusiness === "Electrician" && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">
-              Welcome to QuickFix Electrician
-            </h2>
-            <p>All types of home electrical repairs and fittings.</p>
-          </div>
-        )}
+      <main className="p-8 flex flex-col items-center justify-center gap-8">
+        <h2 className="text-3xl font-bold text-center">
+          Coming Soon – New Features 🎉
+        </h2>
       </main>
     </div>
   );

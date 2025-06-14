@@ -1,10 +1,10 @@
 import DentistPage from "../components/layouts/DentistPage";
-
+import SalonPage from "../components/layouts/SalonPage";
 
 
 const businessComponents = {
   dentist: DentistPage,
-//   salon: SalonPage,
+   salon: SalonPage,
 //   bakery: BakeryPage,
 };
 
