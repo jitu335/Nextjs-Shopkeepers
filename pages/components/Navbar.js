@@ -10,33 +10,35 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaSun, FaMoon, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const router = useRouter();
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedTheme = localStorage.getItem("theme");
+  //   if (savedTheme === "dark") {
+  //     setDarkMode(true);
+  //     document.documentElement.classList.add("dark");
+  //   }
+  // }, []);
 
-  const toggleDarkMode = () => {
-    const isDark = !darkMode;
-    setDarkMode(isDark);
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+  // const toggleDarkMode = () => {
+  //   const isDark = !darkMode;
+  //   setDarkMode(isDark);
+  //   localStorage.setItem("theme", isDark ? "dark" : "light");
 
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
+  //   if (isDark) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // };
   const handleSelectBusiness = (business) => {
     router.push(`/business/${business}`);
     setShowDropdown(false);
@@ -54,21 +56,35 @@ function Navbar() {
     <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
       <nav className="bg-blue-600 p-4 text-white relative z-50">
         <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-          {/* Logo */}
-          <Image
-            src="/my_photos/orffosoft.png"
-            alt="Logo"
-            width={100}
-            height={60}
-            style={{ height: "40px", width: "auto", objectFit: "contain" }}
-          />
+          {/* Logo + Mobile DarkMode Toggle */}
+          <div className="flex items-center gap-4">
+            <Image
+              src="/my_photos/orffosoft.png"
+              alt="Logo"
+              width={100}
+              height={60}
+              style={{ height: "40px", width: "auto", objectFit: "contain" }}
+            />
 
-          {/* Hamburger */}
+            {/* Dark Mode Toggle - Only for Mobile */}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full bg-blue-700 hover:bg-blue-800 transition sm:hidden" // only mobile
+            >
+              {darkMode ? (
+                <FaSun className="text-yellow-400 text-2xl" />
+              ) : (
+                <FaMoon className="text-gray-200 text-2xl" />
+              )}
+            </button>
+          </div>
+
+          {/* Hamburger for mobile */}
           <button className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
 
-          {/* Links */}
+          {/* Nav Links + Desktop DarkMode Toggle */}
           <div
             className={`flex-col sm:flex-row sm:flex items-center absolute sm:static bg-blue-600 left-0 w-full sm:w-auto p-4 sm:p-0 transition-all duration-300 ${
               menuOpen ? "top-16" : "top-[-400px]"
@@ -82,7 +98,7 @@ function Navbar() {
               ))}
             </div>
 
-            {/* Dropdown */}
+            {/* Dropdown Menu */}
             <div className="relative mt-4 sm:mt-0 sm:ml-4">
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
@@ -91,7 +107,7 @@ function Navbar() {
                 Select Business <FaChevronDown className="text-white text-sm" />
               </button>
               {showDropdown && (
-                <div className="absolute right-0 mt-2 bg-white text-black rounded shadow-md w-40 z-50">
+                <div className="absolute left-0 mt-2 bg-white text-black rounded shadow-md w-40 z-50 sm:right-0 sm:left-auto">
                   {businesses.map((b) => (
                     <button
                       key={b}
@@ -105,10 +121,10 @@ function Navbar() {
               )}
             </div>
 
-            {/* Dark Mode */}
+            {/* Dark Mode Toggle - Only for Desktop */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-blue-700 hover:bg-blue-800 transition ml-2 mt-4 sm:mt-0"
+              className="p-2 rounded-full bg-blue-700 hover:bg-blue-800 transition ml-2 mt-4 sm:mt-0 hidden sm:block" // only desktop
             >
               {darkMode ? (
                 <FaSun className="text-yellow-400 text-2xl" />
