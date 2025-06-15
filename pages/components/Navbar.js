@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaSun, FaMoon, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { useDarkMode } from "../context/DarkModeContext";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function Navbar() {
   // const [darkMode, setDarkMode] = useState(false);

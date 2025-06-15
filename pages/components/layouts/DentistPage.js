@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowLeftIcon, HomeIcon } from "@heroicons/react/24/solid";
-import { useDarkMode } from "@/pages/context/DarkModeContext";
+import { useDarkMode } from "@/context/DarkModeContext"; 
+
+
 
 export default function DentistPage() {
   const { darkMode } = useDarkMode();
