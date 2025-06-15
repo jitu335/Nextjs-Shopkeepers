@@ -13,32 +13,12 @@ import { useRouter } from "next/router";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 function Navbar() {
-  // const [darkMode, setDarkMode] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const router = useRouter();
   const { darkMode, toggleDarkMode } = useDarkMode();
 
-  // useEffect(() => {
-  //   const savedTheme = localStorage.getItem("theme");
-  //   if (savedTheme === "dark") {
-  //     setDarkMode(true);
-  //     document.documentElement.classList.add("dark");
-  //   }
-  // }, []);
-
-  // const toggleDarkMode = () => {
-  //   const isDark = !darkMode;
-  //   setDarkMode(isDark);
-  //   localStorage.setItem("theme", isDark ? "dark" : "light");
-
-  //   if (isDark) {
-  //     document.documentElement.classList.add("dark");
-  //   } else {
-  //     document.documentElement.classList.remove("dark");
-  //   }
-  // };
   const handleSelectBusiness = (business) => {
     router.push(`/business/${business}`);
     setShowDropdown(false);
@@ -140,6 +120,16 @@ function Navbar() {
         <h2 className="text-3xl font-bold text-center">
           Coming Soon – New Features 🎉
         </h2>
+
+        <div className="flex justify-center">
+          <Image
+            src="/my_photos/webdevelopment-img.jpg"
+            alt="Logo"
+            width={4000}
+            height={5060}
+            style={{ height: "400px", width: "auto", objectFit: "contain" }}
+          />
+        </div>
       </main>
     </div>
   );
