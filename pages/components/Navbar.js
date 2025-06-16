@@ -2,19 +2,29 @@ import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
-import { CgWebsite } from "react-icons/cg";
-import { CiSettings } from "react-icons/ci";
 import { Card, Input } from "antd";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
+
 import React from "react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaSun, FaMoon, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaSun,
+  FaMoon,
+  FaChevronDown,
+  FaBars,
+  FaTimes,
+  FaArrowRight,
+} from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { width, height } = useWindowSize();
 
   const router = useRouter();
   const { darkMode, toggleDarkMode } = useDarkMode();
@@ -116,21 +126,76 @@ function Navbar() {
         </div>
       </nav>
 
-      <main className="p-8 flex flex-col items-center justify-center gap-8">
-        <h2 className="text-3xl font-bold text-center">
-          Coming Soon – New Features 🎉
-        </h2>
+      <Confetti
+        width={width}
+        height={height}
+        numberOfPieces={100}
+        recycle={false}
+      />
 
-        <div className="flex justify-center">
+      {/* Hero Section */}
+      <section className="text-center py-16 px-4">
+        <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+          Your Business Partner in Web & App Development 🚀
+        </h1>
+        <p className="mt-4 text-lg sm:text-xl max-w-2xl mx-auto text-white">
+          Modern, scalable, mobile-friendly websites and Android apps to boost
+          your business growth. 🎉
+        </p>
+        <Link
+          href="/contactus"
+          className="inline-flex items-center mt-6 px-6 py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full hover:scale-105 transition transform"
+        >
+          Get in Touch <FaArrowRight className="ml-2" />
+        </Link>
+      </section>
+
+      {/* Services Section */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-8 py-8 w-full max-w-6xl">
+        {[
+          { title: "Web Development", emoji: "💻" },
+          { title: "App Development", emoji: "📱" },
+          { title: "UI/UX Design", emoji: "🎨" },
+          { title: "SEO Optimization", emoji: "🚀" }, // नया चौथा सर्विस
+        ].map((service) => (
+          <div
+            key={service.title}
+            className="bg-gradient-to-r from-pink-500 to-yellow-500 text-white p-6 rounded-xl shadow-lg hover:scale-105 transition cursor-pointer flex flex-col items-center justify-center text-center"
+          >
+            <h3 className="text-xl font-bold mb-2">
+              {service.emoji} {service.title}
+            </h3>
+            <p className="text-sm">
+              {service.title === "SEO Optimization"
+                ? "Boost your website ranking on Google & drive traffic!"
+                : "High quality services to grow your business."}
+            </p>
+          </div>
+        ))}
+      </section>
+
+      {/* Image Section with full flex fill */}
+      <section className="py-8 px-4 w-full max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div className="flex-1 text-center sm:text-left">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            Why Choose Us?
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300">
+            We deliver modern, scalable & responsive websites and mobile apps
+            designed to boost your business presence online.
+          </p>
+        </div>
+
+        <div className="flex-1">
           <Image
             src="/my_photos/webdevelopment-img.jpg"
-            alt="Logo"
-            width={4000}
-            height={5060}
-            style={{ height: "400px", width: "auto", objectFit: "contain" }}
+            alt="Web Development"
+            width={800}
+            height={600}
+            className="rounded-xl shadow-xl object-cover w-full"
           />
         </div>
-      </main>
+      </section>
     </div>
   );
 }

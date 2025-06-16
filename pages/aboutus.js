@@ -14,7 +14,7 @@ export default function aboutus() {
     >
       {/* Back Icon - Top Left */}
       <div className="absolute top-4 left-4">
-        <Link href="#" onClick={() => window.history.back()}>
+        <Link href="/" onClick={() => window.history.back()}>
           <ArrowLeftIcon className="h-6 w-6 cursor-pointer hover:text-blue-500 transition" />
         </Link>
       </div>
