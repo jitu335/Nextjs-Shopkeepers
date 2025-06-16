@@ -138,10 +138,11 @@ function Navbar() {
         <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
           Your Business Partner in Web & App Development 🚀
         </h1>
-        <p className="mt-4 text-lg sm:text-xl max-w-2xl mx-auto text-white">
+        <p className="mt-4 text-lg sm:text-xl max-w-2xl mx-auto text-gray-800 dark:text-white">
           Modern, scalable, mobile-friendly websites and Android apps to boost
           your business growth. 🎉
         </p>
+
         <Link
           href="/contactus"
           className="inline-flex items-center mt-6 px-6 py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full hover:scale-105 transition transform"
