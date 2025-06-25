@@ -24,8 +24,8 @@ const RouteChangeLoader = () => {
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-      <div className="text-white text-4xl font-bold animate-bounce p-8 rounded-2xl bg-gray-900 shadow-2xl">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+      <div className="text-white text-2xl sm:text-4xl font-bold animate-bounce px-6 py-4 rounded-2xl bg-gradient-to-br from-purple-700 via-indigo-500 to-teal-400 shadow-2xl text-center">
         Loading, Please Wait... 🔄
       </div>
     </div>
