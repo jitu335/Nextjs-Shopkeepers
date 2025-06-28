@@ -8,6 +8,7 @@ export default function contact() {
   const { darkMode } = useDarkMode();
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isIframeLoaded, setIsIframeLoaded] = useState(false);
 
   return (
     <div
@@ -64,28 +65,41 @@ export default function contact() {
 
       {/* Google Form View */}
       {showForm && (
-        <div className="mt-10 w-full max-w-xl">
+        <div className="mt-10 w-full max-w-xl relative">
+          {/* Loading Overlay */}
+          {!isIframeLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-gray-900/80 z-10 rounded-md">
+              <div className="text-lg font-semibold animate-pulse text-gray-700 dark:text-gray-300">
+                Please wait Loading Contact Form...
+              </div>
+            </div>
+          )}
+
+          {/* iFrame Embed */}
           <iframe
             src="https://docs.google.com/forms/d/e/1FAIpQLSe7hbSnrLZu6YZBerk8t_50mhhQPTb9yAyxZgmVzMw58vgF7A/viewform?embedded=true"
             width="100%"
             height="600"
             frameBorder="0"
-            className="rounded-md"
-          >
-            Loading…
-          </iframe>
+            className="rounded-md w-full relative z-0"
+            onLoad={() => setIsIframeLoaded(true)}
+          ></iframe>
 
-          <div className="text-center mt-6">
-            <button
-              onClick={() => {
-                setShowForm(false);
-                setSubmitted(true);
-              }}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md transition"
-            >
-              ✅ I've submitted the form
-            </button>
-          </div>
+          {/* Submit Confirmation Button */}
+          {isIframeLoaded && (
+            <div className="text-center mt-6">
+              <button
+                onClick={() => {
+                  setShowForm(false);
+                  setSubmitted(true);
+                  setIsIframeLoaded(false);
+                }}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md transition"
+              >
+                ✅ I've submitted the form
+              </button>
+            </div>
+          )}
         </div>
       )}
 
