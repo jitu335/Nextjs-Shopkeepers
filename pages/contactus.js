@@ -69,8 +69,8 @@ export default function contact() {
           {/* Loading Overlay */}
           {!isIframeLoaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-gray-900/80 z-10 rounded-md">
-              <div className="text-lg font-semibold animate-pulse text-gray-700 dark:text-gray-300">
-                Please wait Loading Contact Form...
+              <div className="text-3xl font-bold animate-pulse text-gray-700 dark:text-gray-300 text-center">
+                Please wait... <br /> Loading Contact Form 🔄
               </div>
             </div>
           )}

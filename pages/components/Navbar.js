@@ -41,7 +41,7 @@ function Navbar() {
     { name: "Contact", href: "/contactus" },
   ];
 
-  const businesses = ["dentist", "salon", "bakery", "electrician"];
+  const businesses = ["dentist", "publicspeaking", "bakery", "electrician"];
 
   return (
     <>
