@@ -24,16 +24,11 @@ import { useDarkMode } from "../../context/DarkModeContext";
 function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [showSubDropdown, setShowSubDropdown] = useState(false);
   const { width, height } = useWindowSize();
 
   const router = useRouter();
   const { darkMode, toggleDarkMode } = useDarkMode();
-
-  const handleSelectBusiness = (business) => {
-    router.push(`/business/${business}`);
-    setShowDropdown(false);
-  };
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -42,6 +37,11 @@ function Navbar() {
   ];
 
   const businesses = ["dentist", "publicspeaking", "bakery", "electrician"];
+
+  const handleSelectBusiness = (business) => {
+    router.push(`/business/${business}`);
+    setShowDropdown(false);
+  };
 
   return (
     <>
@@ -147,7 +147,17 @@ function Navbar() {
                   Select Business{" "}
                   <FaChevronDown className="text-white text-sm" />
                 </button>
-                {showDropdown && (
+
+                {/* {showDropdown && (
+                  <div>
+                    {businesses.map((b) => (
+                      <button key={b} onClick={() => handleSelectBusiness(b)}> {b}
+                      </button>
+                    ))}
+                  </div>
+                )}  */}
+
+                {/* {showDropdown && (
                   <div className="absolute left-0 mt-2 bg-white text-black rounded shadow-md w-40 z-50 sm:right-0 sm:left-auto">
                     {businesses.map((b) => (
                       <button
@@ -159,6 +169,55 @@ function Navbar() {
                       </button>
                     ))}
                   </div>
+                )} */}
+
+                {showDropdown && (
+                  <ul className="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50 text-black ">
+                    {/* Other businesses */}
+                    {["dentist", "bakery", "electrician"].map((biz) => (
+                      <li
+                        key={biz}
+                        onClick={() => handleSelectBusiness(biz)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        {biz.charAt(0).toUpperCase() + biz.slice(1)}
+                      </li>
+                    ))}
+
+                    {/* Public Speaking with responsive left-side popup */}
+                    <li className="relative group">
+                      <div
+                        onClick={() => handleSelectBusiness("publicspeaking")}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Public Speaking
+                      </div>
+
+                      {/* Responsive Sub-dropdown */}
+                      <ul
+                        className={`
+            absolute top-0 
+            hidden group-hover:block 
+            w-40 bg-white border rounded shadow-lg z-50 text-black
+            lg:right-full lg:mr-2 
+            sm:left-0 sm:mt-10 sm:w-40 sm:shadow-xl
+          `}
+                      >
+                        {["demo1", "demo2", "demo3", "demo4"].map((item, i) => (
+                          <li
+                            key={i}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                               router.push(`/business/publicspeaking/${item}`);
+                            }}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  </ul>
                 )}
               </div>
 
@@ -236,19 +295,19 @@ function Navbar() {
               designed to boost your business presence online.
             </p>
           </div>
-      <div className="flex-1">
-  <Image
-    src="/my_photos/webdevelopment-img.jpg"
-    alt="Web Development"
-    width={800}
-    height={600}
-    quality={75} // compress for performance
-    placeholder="blur" // optional: blur-up effect
-    blurDataURL="/my_photos/blur-placeholder.jpg" // small base64 blur image (optional but improves UX)
-    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // responsive sizing
-    className="rounded-xl shadow-xl object-cover w-full"
-  />
-</div>
+          <div className="flex-1">
+            <Image
+              src="/my_photos/webdevelopment-img.jpg"
+              alt="Web Development"
+              width={800}
+              height={600}
+              quality={75} // compress for performance
+              placeholder="blur" // optional: blur-up effect
+              blurDataURL="/my_photos/blur-placeholder.jpg" // small base64 blur image (optional but improves UX)
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // responsive sizing
+              className="rounded-xl shadow-xl object-cover w-full"
+            />
+          </div>
         </section>
       </div>
     </>

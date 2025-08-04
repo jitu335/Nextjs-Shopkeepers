@@ -5,9 +5,8 @@ import { ArrowLeftIcon, HomeIcon } from "@heroicons/react/24/solid";
 import { useDarkMode } from "@/context/DarkModeContext";
 import { useRouter } from "next/router";
 
-export default function PublicSpeaking() {
+export default function PublicSpeakingDemo2() {
   const { darkMode } = useDarkMode();
-  const router = useRouter();
 
   return (
     <div
@@ -56,14 +55,6 @@ export default function PublicSpeaking() {
         >
           Transform Your Voice into Influence 🎤
         </h1>
-        <p
-          className={`text-lg mb-6 ${
-            darkMode ? "text-gray-300" : "text-gray-700"
-          }`}
-        >
-          Helping Public Speaking & Confidence Coaches get 50–100 leads/month
-          through stunning landing pages & targeted ads 🚀
-        </p>
 
         <div className="flex justify-center gap-4 flex-wrap">
           <a
@@ -83,52 +74,6 @@ export default function PublicSpeaking() {
             🎯 View My Work
           </a>
         </div>
-      </div>
-
-      {/* Result Section (No Card) */}
-      <div className="max-w-4xl mx-auto mt-16 text-center">
-        <h2
-          className={`text-2xl font-bold mb-2 ${
-            darkMode ? "text-white" : "text-pink-700"
-          }`}
-        >
-          🔥 Real Result
-        </h2>
-        <p className={`${darkMode ? "text-gray-300" : "text-gray-700"} mb-4`}>
-          Coach Neha Sharma got 176 leads in 12 days — with just ₹5,000 ad
-          spend!
-        </p>
-
-        <div className="flex justify-center">
-          <Image
-            src="/my_photos/speaking-coach.png"
-            alt="Speaking Coach Result"
-            width={900}
-            height={200}
-            className="rounded-lg shadow-md object-contain h-[240px] w-auto"
-          />
-        </div>
-      </div>
-
-      {/* Process Section (Flat) */}
-      <div className="max-w-4xl mx-auto mt-16 text-center">
-        <h2
-          className={`text-2xl font-bold mb-4 ${
-            darkMode ? "text-white" : "text-pink-700"
-          }`}
-        >
-          🚀 How It Works
-        </h2>
-        <ul
-          className={`space-y-2 text-left list-disc list-inside max-w-xl mx-auto ${
-            darkMode ? "text-gray-300" : "text-gray-700"
-          }`}
-        >
-          <li>We create a beautiful landing page for your offer</li>
-          <li>We design high-converting ads (image + copy)</li>
-          <li>We run & monitor Facebook + Instagram ads</li>
-          <li>You get leads directly to your WhatsApp or Email</li>
-        </ul>
       </div>
 
       {/* Footer */}

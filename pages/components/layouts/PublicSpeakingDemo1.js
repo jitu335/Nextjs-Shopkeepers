@@ -3,11 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeftIcon, HomeIcon } from "@heroicons/react/24/solid";
 import { useDarkMode } from "@/context/DarkModeContext";
-import { useRouter } from "next/router";
 
-export default function PublicSpeaking() {
+export default function PublicSpeakingDemo1() {
   const { darkMode } = useDarkMode();
-  const router = useRouter();
 
   return (
     <div
